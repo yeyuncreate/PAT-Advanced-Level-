@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+// 整型转成字符串
+string int_to_str(int num){
+    stringstream str;
+    str << num;
+    return str.str();
+}
+
+// 每三位插入','
+string insert_comma(const string &str){
+    // int minus = ((str[0] == '-')? 1 : 0);   // 正负标识
+    string str_copy(str);                     // 副本，避免插入','使得str索引混乱
+    int length = str.size();
+    int count = 0;
+    for (int i = length - 4; i >= 0; i--){
+        if (((length - 1 - i) % 3 == 0) && str[i] != '-'){
+            str_copy.insert(i + 1, ",");     // http://www.cplusplus.com/reference/string/string/insert/
+            count++;
+        }    
+    }
+    return str_copy;
+}
+
+int main(){
+    int a, b;
+    cin >> a >> b;
+    
+    string str = int_to_str(a + b);
+    cout << insert_comma(str) << endl;
+
+    return 0;
+}
